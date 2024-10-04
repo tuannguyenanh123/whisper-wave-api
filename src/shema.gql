@@ -1,0 +1,74 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Channel {
+  createdAt: String!
+  id: Float!
+  messages: [Member!]
+  name: String
+  type: ChannelType!
+  updatedAt: String!
+}
+
+"""define type of channel"""
+enum ChannelType {
+  AUDIO
+  TEXT
+  VIDEO
+}
+
+input CreateProfileDto {
+  email: String!
+  imageUrl: String!
+  name: String!
+}
+
+type Member {
+  createdAt: String
+  email: String
+  id: Float!
+  imageUrl: String
+  name: String
+  profile: [Profile!]
+  profileId: String!
+  role: MemberRole!
+  server: Server
+  updatedAt: String
+}
+
+"""Member roles in the WhisperWave server"""
+enum MemberRole {
+  ADMIN
+  GUEST
+  MODERATOR
+}
+
+type Mutation {
+  createProfile(input: CreateProfileDto!): Profile!
+}
+
+type Profile {
+  channels: [Channel]
+  email: String
+  id: Float!
+  imageUrl: String!
+  name: String
+  servers: [Server]
+}
+
+type Query {
+  hello: String!
+  profileById(profileId: Float!): Profile!
+}
+
+type Server {
+  channels: [Channel]
+  id: Float!
+  imageUrl: String!
+  inviteCode: String
+  members: [Member]
+  name: String
+  profile: Profile
+  profileId: Float!
+}

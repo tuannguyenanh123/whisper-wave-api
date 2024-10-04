@@ -1,0 +1,35 @@
+import {
+  ExecutionContext,
+  CanActivate,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
+
+@Injectable()
+export class GraphglAuthGuard implements CanActivate {
+  constructor(private jwtService: JwtService) {}
+  async canActivate(context: ExecutionContext) {
+    const graphqlContext = context.getArgByIndex(2);
+    const request: Request = graphqlContext.req;
+    const token = this.extractToken(request);
+
+    if (!token) throw new UnauthorizedException('not authorized!');
+
+    try {
+      const payload = await this.jwtService.verifyAsync(token, {
+        publicKey: process.env.JWT_PUBLIC_KEY,
+        algorithms: ['RS256'],
+      });
+      request['profile'] = payload;
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
+    return true;
+  }
+
+  private extractToken(request: Request): string | undefined {
+    return request.headers.authorization?.replace('Bearer ', '');
+  }
+}
