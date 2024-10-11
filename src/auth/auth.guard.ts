@@ -15,7 +15,7 @@ export class GraphglAuthGuard implements CanActivate {
     const request: Request = graphqlContext.req;
     const token = this.extractToken(request);
 
-    if (!token) throw new UnauthorizedException('not authorized!');
+    if (!token) throw new UnauthorizedException('Not Authorized!');
 
     try {
       const payload = await this.jwtService.verifyAsync(token, {
