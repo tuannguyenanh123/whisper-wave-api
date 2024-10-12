@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
@@ -11,9 +12,10 @@ import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
-      serveRoot: '/'
+      serveRoot: '/',
     }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       imports: [],
@@ -24,8 +26,8 @@ import { ProfileModule } from './profile/profile.module';
           autoSchemaFile: join(process.cwd(), 'src/shema.gql'),
           sortSchema: true,
           subscriptions: {},
-        }
-      }
+        };
+      },
     }),
     ServerModule,
     MemberModule,
