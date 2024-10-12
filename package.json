@@ -2,7 +2,7 @@
   "name": "whisper-wave_backend",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "candy_dev",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -31,12 +31,14 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/serve-static": "^4.0.2",
     "@prisma/client": "^5.20.0",
+    "apollo-server-express": "^3.13.0",
     "class-validator": "^0.14.1",
     "graphql": "^16.9.0",
     "graphql-upload": "^14.0.0",
     "prisma": "^5.20.0",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

@@ -8,8 +8,9 @@ import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
 @Injectable()
-export class GraphglAuthGuard implements CanActivate {
+export class GraphqlAuthGuard implements CanActivate {
   constructor(private jwtService: JwtService) {}
+
   async canActivate(context: ExecutionContext) {
     const graphqlContext = context.getArgByIndex(2);
     const request: Request = graphqlContext.req;
